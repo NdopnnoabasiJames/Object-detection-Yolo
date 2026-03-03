@@ -62,6 +62,25 @@ The best model is saved to:
 models/yolo_finetuned.pt
 ```
 
+## Classes
+
+The model was fine-tuned on the COCO128 subset dataset, which contains 80 object classes.  
+Common classes include:
+
+- Person  
+- Car  
+- Bus  
+- Bicycle  
+- Truck  
+- Dog  
+- Traffic light  
+- Handbag  
+- Chair  
+- Laptop  
+
+The fine-tuned model retains the full COCO class set while improving performance on this subset.
+```
+
 ## Model Comparison
 
 The inference script compares:
