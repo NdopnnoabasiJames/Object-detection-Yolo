@@ -1,0 +1,30 @@
+# YOLO Object Detection Requirements
+
+# Deep Learning Framework
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Computer Vision
+opencv-python>=4.8.0
+Pillow>=10.0.0
+
+# Data Processing
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# YOLO Implementation (choose one)
+# ultralytics>=8.0.0  # For YOLOv8
+# yolov5  # For YOLOv5
+
+# Utilities
+tqdm>=4.65.0
+PyYAML>=6.0
+tensorboard>=2.13.0
+
+# Optional: For deployment
+# onnx>=1.14.0
+# onnxruntime>=1.15.0

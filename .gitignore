@@ -1,0 +1,19 @@
+# YOLO experiment outputs
+runs/
+outputs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment
+.env
+venv/
+*.egg-info/
+
+# Mac
+.DS_Store
+
+# Optional - large checkpoints (comment if pushing model)
+# *.pt
