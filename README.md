@@ -1,109 +1,98 @@
-# YOLO Object Detection
+# YOLOv8 Object Detection – Fine-Tuning and Benchmarking
 
-A comprehensive YOLO-based object detection project for training, inference, and deployment.
+This project demonstrates an applied workflow for object detection using YOLOv8.  
+It includes fine-tuning a pretrained model, evaluating performance, and benchmarking against the original baseline.
+
+## Overview
+
+The goal of this project was not to train a model from scratch, but to:
+
+- Fine-tune a pretrained YOLOv8 model on a subset dataset (COCO128)
+- Compare pretrained vs fine-tuned performance
+- Log per-image inference results
+- Save structured outputs for visual inspection
+
+This reflects how object detection is typically handled in real-world AI engineering.
 
 ## Project Structure
 
 ```
 yolo-object-detection/
 │
-├── data/              # Dataset storage
-├── models/            # Trained model checkpoints
-├── src/               # Source code
-│   ├── inference.py   # Inference module
-│   ├── train.py       # Training module
-│   └── utils.py       # Utility functions
+├── data/              # Test images
+├── models/            # Saved fine-tuned model
+├── src/
+│   ├── train.py       # Fine-tuning script
+│   ├── inference.py   # Model comparison and logging
+│   └── utils.py
 │
-├── outputs/           # Output results (images, videos, logs)
-├── requirements.txt   # Python dependencies
-└── README.md          # Project documentation
+├── outputs/           # Generated results (excluded from Git)
+├── requirements.txt
+└── README.md
 ```
 
 ## Setup
 
-### 1. Install Dependencies
+Create and activate an environment:
 
-```bash
+```
+conda create -n yolo-detection python=3.10
+conda activate yolo-detection
+```
+
+Install dependencies:
+
+```
 pip install -r requirements.txt
 ```
 
-### 2. Prepare Dataset
+## Training
 
-Place your dataset in the `data/` directory with the following structure:
+Fine-tuning was performed using YOLOv8 on the COCO128 subset dataset.
+
+To train:
 
 ```
-data/
-├── images/
-│   ├── train/
-│   └── val/
-└── labels/
-    ├── train/
-    └── val/
+python src/train.py
 ```
 
-## Usage
+The best model is saved to:
 
-### Training
-
-```python
-from src.train import YOLOTrainer
-
-config = {
-    'batch_size': 16,
-    'learning_rate': 0.001,
-    'img_size': 640
-}
-
-trainer = YOLOTrainer(config)
-trainer.setup_data('data/')
-trainer.build_model(model_config)
-trainer.train(epochs=100, save_dir='models/')
+```
+models/yolo_finetuned.pt
 ```
 
-### Inference
+## Model Comparison
 
-```python
-from src.inference import YOLOInference
+The inference script compares:
 
-# Initialize inference
-detector = YOLOInference(model_path='models/best.pt')
-detector.load_model()
+- Pretrained YOLOv8n
+- Fine-tuned YOLOv8 model
 
-# Predict on image
-results = detector.predict_image('path/to/image.jpg')
+For every image in the `data/` directory, it:
 
-# Predict on video
-detector.predict_video('path/to/video.mp4', 'outputs/result.mp4')
+- Runs detection
+- Saves bounding box outputs
+- Logs inference time and detection details per image
+
+To run comparison:
+
+```
+python src/inference.py
 ```
 
-## Features
+Logs are saved to:
 
-- ✅ Model training and fine-tuning
-- ✅ Image and video inference
-- ✅ Visualization utilities
-- ✅ Custom dataset support
-- ✅ Model checkpointing
-- ✅ TensorBoard logging
+```
+outputs/comparison_log.txt
+```
 
-## Requirements
+## Notes
 
-- Python 3.8+
-- PyTorch 2.0+
-- CUDA (optional, for GPU acceleration)
+- The `runs/` and `outputs/` directories are excluded from version control.
+- This project focuses on applied model evaluation and benchmarking.
+- Designed to run on consumer hardware (Apple M1 with MPS).
 
-## TODO
+## Author
 
-- [ ] Implement training loop
-- [ ] Add data augmentation
-- [ ] Implement inference pipeline
-- [ ] Add evaluation metrics
-- [ ] Create demo scripts
-- [ ] Add model export (ONNX)
-
-## License
-
-MIT License
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+James Ndopnno-Abasi
